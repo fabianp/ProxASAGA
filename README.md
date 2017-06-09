@@ -20,7 +20,7 @@ $ python prox_asaga.py
 ```
 This script trains a logistic regression model using ProxASAGA on 1, 2, 3 and 4 processors respectively. If everything worked fine, after ~10 minutes you should see a matplotlib plot like this:
 
-![]()
+![](https://raw.githubusercontent.com/fabianp/ProxASAGA/master/doc/proxasaga_screenshot.png?token=AAQ8h6vIuq4hSRo9JyWCi9p176zVg6FNks5ZRC2BwA%3D%3D)
 
 ## Other implementations
 
