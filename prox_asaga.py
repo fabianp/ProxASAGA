@@ -1,6 +1,5 @@
 import numpy as np
 from scipy import sparse
-import copt as cp
 import cffi
 
 ffi = cffi.FFI()
@@ -25,6 +24,18 @@ def _compute_D(A):
     d[~idx] = 0.
     return d
 
+
+def _logistic_loss(A, b, alpha, beta, x):
+    # loss function to be optimized, it's the logistic loss
+    z = A.dot(x)
+    yz = b * z
+    idx = yz > 0
+    out = np.zeros_like(yz)
+    out[idx] = np.log(1 + np.exp(-yz[idx]))
+    out[~idx] = (-yz[~idx] + np.log(1 + np.exp(yz[~idx])))
+    out = out.mean() + .5 * alpha * x.dot(x) + beta * np.sum(np.abs(x))
+    return out
+
 def minimize_SAGA(A, b, alpha, beta, step_size, max_iter=100, n_jobs=1):
     n_samples, n_features = A.shape
     A = sparse.csr_matrix(A, dtype=np.float)
@@ -43,11 +54,9 @@ def minimize_SAGA(A, b, alpha, beta, step_size, max_iter=100, n_jobs=1):
         ffi.cast("double *", b.ctypes.data), ffi.cast("double *", d.ctypes.data), n_samples, n_features,
         n_jobs, alpha, beta, step_size, max_iter, ffi.cast("double *", trace_x.ctypes.data),
         ffi.cast("double *", trace_time.ctypes.data), ffi.cast("int64_t", n_samples))
-    f = cp.LogisticLoss(A, b, alpha)
-    g = cp.L1Norm(beta)
     print('.. computing trace ..')
-    func_trace = np.array([f(xi) + g(xi) for xi in trace_x])
-    # trace_time -= trace_time[0]
+    func_trace = np.array([
+        _logistic_loss(A, b, alpha, beta, xi) for xi in trace_x])
 
     return x, trace_time[:-2], func_trace[:-2]
 
@@ -64,8 +73,7 @@ if __name__ == '__main__':
     beta = 1e-10
     alpha = 1. / n_samples
 
-    f = cp.LogisticLoss(X, y, alpha)
-    L = f.lipschitz_constant('samples')
+    L = 0.25 * np.max(X.multiply(X).sum(axis=1)) + alpha * n_samples
     print('data loaded')
 
     step_size_SAGA = 1.0 / (3 * L)
