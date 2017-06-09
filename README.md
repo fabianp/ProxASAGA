@@ -5,9 +5,8 @@ Code that implements the proximal asynchronous SAGA (ProxASAGA) method described
 ## Compatibility
 
 The code depends on the following tools and libraries:
-
-  * gcc (clang will probably work too but you'll need to edit the Makefile accordingly).
-  * The following python libraries: [cffi python library](https://pypi.python.org/pypi/cffi?), NumPy and SciPy.
+  * gcc (clang will probably work too but you'll need to edit the Makefile accordingly).
+  * The following python libraries: [CFFI](https://pypi.python.org/pypi/cffi?), NumPy and SciPy.
 
 The code has been tested on OSX and Linux.
 
