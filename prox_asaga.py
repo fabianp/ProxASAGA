@@ -83,7 +83,7 @@ if __name__ == '__main__':
         x, trace_time, func_trace = minimize_SAGA(
             X, y, alpha, beta, step_size_SAGA, max_iter=int(200 / n_jobs), n_jobs=n_jobs)
         fmin = np.min(func_trace)
-        plt.plot(trace_time, func_trace - fmin, label='atomic %s cores' % n_jobs, marker=markers[i], markersize=10, lw=3)
+        plt.plot(trace_time, func_trace - fmin, label='using %s cores' % n_jobs, marker=markers[i], markersize=10, lw=3)
     plt.grid()
     plt.legend()
     plt.xlim((0, trace_time[-1] * .7))
