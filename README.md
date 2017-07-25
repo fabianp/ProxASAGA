@@ -24,4 +24,4 @@ This script trains a logistic regression model using ProxASAGA on 1, 2, 3 and 4 
 
 ## Other implementations
 
-The [C-OPT library](http://copt.bianp.net) contains a pure Python implementation (using Numba) of the sequential algorithm. Note that because Numba lacks atomic types, a pure Python implementation is not straightforward.
+The [C-OPT library](http://copt.bianp.net) contains a pure Python implementation (using Numba) of the sequential algorithm. Note that because Numba lacks atomic types, a pure Python implementation of the parallel algorithm is not straightforward.
