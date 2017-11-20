@@ -1,7 +1,7 @@
 # ProxASAGA
 
 Code that implements the proximal asynchronous SAGA (ProxASAGA) method described in the paper
-    ["Breaking the Nonsmooth Barrier: A Scalable Parallel Method for Composite Optimization"](https://arxiv.org/abs/1707.06468), F. Pedregosa, R. Leblond and S. Lacoste-Julien, ArXiv:1707.06468
+    ["Breaking the Nonsmooth Barrier: A Scalable Parallel Method for Composite Optimization"](https://arxiv.org/abs/1707.06468), F. Pedregosa, R. Leblond and S. Lacoste-Julien, Advances in Neural Information Processing Systems (NIPS) 2017
 
 ## Compatibility
 
